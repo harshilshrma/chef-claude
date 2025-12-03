@@ -4,7 +4,7 @@ import ClaudeRecipe from './ClaudeRecipe.jsx'
 import IngredientsList from './IngredientsList.jsx'
 
 export default function Main() {
-    const [ingredientsList, setIngredientsList] = useState(["dark chocolate", "paneer", "honey", "cocoa powder"]);
+    const [ingredientsList, setIngredientsList] = useState([]);
     const [recipe, setRecipe] = useState(null);
 
     function addIngredient(formData) {
