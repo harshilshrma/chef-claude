@@ -112,6 +112,8 @@ main {
 }
 
 button:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
     background-color: #999;
     color: #eee;
     transition: opacity 0.2s ease, background-color 0.2s ease;
