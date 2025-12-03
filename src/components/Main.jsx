@@ -27,7 +27,7 @@ export default function Main() {
         })
 
         const recipeMarkdown = await res.json();
-        console.log(recipeMarkdown);
+        setRecipe(recipeMarkdown.recipe);
     }
 
     return (
