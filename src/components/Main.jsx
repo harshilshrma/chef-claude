@@ -6,6 +6,7 @@ import IngredientsList from './IngredientsList.jsx'
 export default function Main() {
     const [ingredientsList, setIngredientsList] = useState([]);
     const [recipe, setRecipe] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     function addIngredient(formData) {
         const newIngredient = formData.get("ingredient");
@@ -20,14 +21,25 @@ export default function Main() {
     }
 
     async function getRecipe() {
-        const res = await fetch("/api/generateRecipe", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ingredientsList })
-        })
+        setLoading(true);
+        setRecipe(null);
 
-        const recipeMarkdown = await res.json();
-        setRecipe(recipeMarkdown.recipe);
+        try {
+            const res = await fetch("/api/generateRecipe", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ ingredientsList })
+            })
+
+            const recipeMarkdown = await res.json();
+            setRecipe(recipeMarkdown.recipe);
+        } catch (error) {
+            console.error("Error generating recipe:", error);
+            setRecipe("Something went wrong. Try again.");
+        } finally {
+            setLoading(false);
+        }
+        
     }
 
     return (
@@ -48,11 +60,11 @@ export default function Main() {
 
 
             {ingredientsList.length > 0 &&
-                <IngredientsList ingredientsList={ingredientsList} getRecipe={getRecipe} />
+                <IngredientsList ingredientsList={ingredientsList} getRecipe={getRecipe} loading={loading} />
             }
 
             {recipe &&
-                <ClaudeRecipe recipe={recipe}/>
+                <ClaudeRecipe recipe={recipe} />
             }
         </main>
     )
