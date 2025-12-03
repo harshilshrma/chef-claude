@@ -61,7 +61,7 @@ This project helped reinforce a significant part of my React learning:
 Instead of calling the Gemini API directly from the frontend (which would expose the API key), I used a **serverless backend function** via Vercel:
 
 - `api/generateRecipe.js` receives the POST request
-- The serverless function reads the API key from environment variables (`.env.local`)
+- The AI request is handled by a secure Vercel serverless function. During development, the Gemini API key is loaded from a local `.env` file via process.env, and in production it is stored as a Vercel Environment Variable. The key is never exposed to the browser or frontend bundle.
 - It forwards the request to Gemini, receives the recipe, formats it, and returns it to the frontend
 
 This setup allows the project to behave like a full-stack app without needing a separate backend server.
