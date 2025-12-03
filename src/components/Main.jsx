@@ -21,6 +21,7 @@ export default function Main() {
     }
 
     async function getRecipe() {
+        console.log("clicked");
         setLoading(true);
         setRecipe(null);
 
@@ -39,7 +40,7 @@ export default function Main() {
         } finally {
             setLoading(false);
         }
-        
+
     }
 
     return (
