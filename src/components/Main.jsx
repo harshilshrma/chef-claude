@@ -52,7 +52,7 @@ export default function Main() {
             }
 
             {recipe &&
-                <ClaudeRecipe />
+                <ClaudeRecipe recipe={recipe}/>
             }
         </main>
     )
