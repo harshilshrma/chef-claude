@@ -106,6 +106,13 @@ main {
     font-weight: 400;
 }
 
-.suggested-recipe-container ul li, .suggested-recipe-container ol li {
+.suggested-recipe-container ul li,
+.suggested-recipe-container ol li {
     margin-bottom: 8px;
+}
+
+button:disabled {
+    background-color: #999;
+    color: #eee;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
 }

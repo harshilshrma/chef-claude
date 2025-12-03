@@ -21,7 +21,6 @@ export default function Main() {
     }
 
     async function getRecipe() {
-        console.log("clicked");
         setLoading(true);
         setRecipe(null);
 
