@@ -4,12 +4,12 @@ import ClaudeRecipe from './ClaudeRecipe.jsx'
 import IngredientsList from './IngredientsList.jsx'
 
 export default function Main() {
-    const [ingredientsList, setIngredientsList] = useState(["a", "v", "asc", "asc"]);
-    const [recipeShown, setRecipeShown] = useState(false);
+    const [ingredientsList, setIngredientsList] = useState(["dark chocolate", "paneer", "honey", "cocoa powder"]);
+    const [recipe, setRecipe] = useState(null);
 
     function addIngredient(formData) {
         const newIngredient = formData.get("ingredient");
-        
+
         if (newIngredient === "") {
             return;
         }
@@ -19,10 +19,15 @@ export default function Main() {
         });
     }
 
-    function toggleRecipeShown() {
-        setRecipeShown((prevValue) => {
-            return !prevValue;
+    async function getRecipe() {
+        const res = await fetch("/api/generateRecipe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ingredientsList })
         })
+
+        const recipeMarkdown = await res.json();
+        console.log(recipeMarkdown);
     }
 
     return (
@@ -43,10 +48,10 @@ export default function Main() {
 
 
             {ingredientsList.length > 0 &&
-                <IngredientsList ingredientsList={ingredientsList} toggleRecipeShown={toggleRecipeShown} />
+                <IngredientsList ingredientsList={ingredientsList} getRecipe={getRecipe} />
             }
 
-            {recipeShown &&
+            {recipe &&
                 <ClaudeRecipe />
             }
         </main>
